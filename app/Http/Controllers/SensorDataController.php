@@ -26,8 +26,6 @@ class SensorDataController extends Controller
 
     public function store(Request $request)
     {
-        
-        
         $sensorData = SensorData::create($request->all());
         return response()->json($sensorData, 201);
     }
