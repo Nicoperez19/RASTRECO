@@ -21,6 +21,12 @@ class SensorData extends Model
         'status_read_sensor_dht11',
         'lux',
         'status_read_sensor_lux',
+        'water',
+        'status_read_sensor_water',
+        'ground',
+        'status_read_sensor_ground',
+        'rain',
+        'status_read_sensor_rain',
         'time',
         'date',
     ];
