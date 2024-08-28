@@ -10,12 +10,11 @@ class SensorData extends Model
 {
     use HasFactory;
 
-    protected $table = 'laravel'; 
+    protected $table = 'rastreco'; 
 
     
     protected $fillable = [
         'id',
-        //'board',
         'temperature',
         'humidity',
         'status_read_sensor_dht11',
