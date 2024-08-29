@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('sensor', function (Blueprint $table) {
-            $table->bigIncrements('id'); // Clave primaria auto-incrementable
+            $table->id();            
             $table->integer('id_arduino');
             $table->float('temperature'); // Temperatura
             $table->float('humidity'); // Humedad
