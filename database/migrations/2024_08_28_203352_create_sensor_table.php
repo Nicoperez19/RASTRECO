@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('sensor', function (Blueprint $table) {
             $table->bigIncrements('id'); // Clave primaria auto-incrementable
+            $table->integer('id_arduino');
             $table->float('temperature'); // Temperatura
             $table->float('humidity'); // Humedad
             $table->string('status_read_sensor_dht11'); // Estado del sensor DHT11
