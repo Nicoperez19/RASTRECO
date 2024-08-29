@@ -14,7 +14,7 @@ class SensorData extends Model
 
     
     protected $fillable = [
-        'id',
+        'id_arduino',
         'temperature',
         'humidity',
         'status_read_sensor_dht11',
