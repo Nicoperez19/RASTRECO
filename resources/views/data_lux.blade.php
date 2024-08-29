@@ -7,15 +7,14 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Nav Item - Dashboard -->
+            <!-- Nav Item - Dashboard -->
             <nav class="navbar navbar-expand-lg navbar-light ">
                 <div class="container">
-                    <div class="mx-auto">
-                        <a class="navbar-brand mt-1" href="{{ url('/home') }}" style="color:white">
-                            {{ config('app.name', 'RASTRECO') }}
-                        </a>
-                    </div>
+                    <img src="{{ asset('img/Logo.png') }}" alt="Logo" style="max-width: 100%">
+
                 </div>
             </nav>
+
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -35,9 +34,21 @@
             </div>
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('Tabladatos') }}">
+                <a class="nav-link" href="{{ route('Datos_dht11') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Tabla de datos</span></a>
+                    <span>Temperatura y Humedad</span></a>
+                <a class="nav-link" href="{{ route('Datos_ground') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Humedad Suelo</span></a>
+                <a class="nav-link" href="{{ route('Datos_rain') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Lluvia</span></a>
+                <a class="nav-link" href="{{ route('Datos_water') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Nivel Agua</span></a>
+                <a class="nav-link" href="{{ route('Datos_lux') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Luminosidad</span></a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->

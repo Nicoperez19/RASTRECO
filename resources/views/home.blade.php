@@ -35,9 +35,21 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link" href="{{ route('Tabladatos') }}">
+                <a class="nav-link" href="{{ route('Datos_dht11') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
-                    <span>Tabla de datos</span></a>
+                    <span>Temperatura y Humedad</span></a>
+                <a class="nav-link" href="{{ route('Datos_ground') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Humedad Suelo</span></a>
+                <a class="nav-link" href="{{ route('Datos_rain') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Lluvia</span></a>
+                <a class="nav-link" href="{{ route('Datos_water') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Nivel Agua</span></a>
+                <a class="nav-link" href="{{ route('Datos_lux') }}">
+                    <i class="fas fa-fw fa-chart-area"></i>
+                    <span>Luminosidad</span></a>
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->

@@ -29,6 +29,10 @@ class SensorDataController extends Controller
         $sensorData = SensorData::create($request->all());
         return response()->json($sensorData, 201);
     }
+
+    public function showViewdht11()
+    {
+        $data = SensorData::all(); // Asegúrate de que los datos están siendo obtenidos correctamente.
+        return view('data_dht11', compact('data')); // Pasa la variable $data a la vista
+    }
 }
-
-
