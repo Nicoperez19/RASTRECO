@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $data = SensorData::latest('created_at')->first();
+        $data = SensorData::latest('time')->first();
         return view('home', ['data' => $data]);
     }
 

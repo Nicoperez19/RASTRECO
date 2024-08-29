@@ -210,8 +210,8 @@
 
             // Extrae los valores necesarios para los gráficos
             const labels = data.map(item => item.date);
-            const LuxData = data.map(item => item.lux);
-            const statusData = data.map(item => item.status_read_sensor_lux);
+            const rainData = data.map(item => item.rain);
+            const statusData = data.map(item => item.status_read_sensor_rain);
 
             // Configuración del gráfico de humedad del suelo
             const ctx = document.getElementById('sensorChart').getContext('2d');
@@ -223,7 +223,7 @@
                         label: 'Lluvia',
                         borderColor: 'rgba(54, 162, 235, 1)', // Color del borde en azul
                         backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo en azul claro
-                        data: [] // Aquí los datos de temperatura
+                        data: rainData
                     }]
                 },
                 options: {
