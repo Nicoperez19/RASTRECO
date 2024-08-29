@@ -32,7 +32,31 @@ class SensorDataController extends Controller
 
     public function showViewdht11()
     {
-        $data = SensorData::all(); // Asegúrate de que los datos están siendo obtenidos correctamente.
-        return view('data_dht11', compact('data')); // Pasa la variable $data a la vista
+        $data = SensorData::all();
+        return view('data_dht11', ['data' => $data]);
+
+    }
+
+    public function showViewrain()
+    {
+        $data = SensorData::all();
+        return view('data_rain', ['data' => $data]);
+    }
+    public function showViewwater()
+    {
+        $data = SensorData::all();
+        return view('data_water', ['data' => $data]);
+    }
+
+    public function showViewlux()
+    {
+        $data = SensorData::all();
+        return view('data_lux', ['data' => $data]);
+    }
+
+    public function showViewground()
+    {
+        $data = SensorData::all();
+        return view('data_ground', ['data' => $data]);
     }
 }

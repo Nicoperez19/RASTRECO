@@ -29,6 +29,8 @@ return new class extends Migration
             $table->string('status_read_sensor_rain'); // Estado del sensor de lluvia
             $table->time('time'); // Hora
             $table->date('date'); // Fecha
+            $table->timestamps(); // Esto creará los campos created_at y updated_at automáticamente
+
         });
     }
 

@@ -141,10 +141,13 @@
                             <div class="card shadow">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Temperatura y Humedad (DHT11)</h6>
-                                   
+
                                 </div>
                                 <div class="card-body">
-                                    
+                                    <p>Temperatura: {{ $data->temperature ?? 'No disponible' }} °C</p>
+                                    <p>Humedad: {{ $data->humidity ?? 'No disponible' }} %</p>
+                                    <p>Estado Sensor: {{ $data->status_read_sensor_dht11 ?? 'No conectado' }}</p>
+
                                 </div>
                             </div>
                         </div>
@@ -154,10 +157,12 @@
                             <div class="card shadow">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Sensor de Lluvia</h6>
-                                    
+
                                 </div>
                                 <div class="card-body">
-                                    
+                                    <p>Nivel Luvia: {{ $data->rain ?? 'No disponible' }}</p>
+                                    <p>Estado Sensor: {{ $data->status_read_sensor_rain ?? 'No conectado' }}</p>
+
                                 </div>
                             </div>
                         </div>
@@ -167,10 +172,12 @@
                             <div class="card shadow">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Humedad del Suelo</h6>
-                                   
+
                                 </div>
                                 <div class="card-body">
-                                   
+                                    <p>Humedad Suelo: {{ $data->ground ?? 'No disponible' }} </p>
+                                    <p>Estado Sensor: {{ $data->status_read_sensor_ground ?? 'No conectado' }}</p>
+
                                 </div>
                             </div>
                         </div>
@@ -180,10 +187,12 @@
                             <div class="card shadow">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Sensor de Luz (Lux)</h6>
-                                    
+
                                 </div>
                                 <div class="card-body">
-                                  
+                                    <p>Luminosidad: {{ $data->lux ?? 'No disponible' }} </p>
+                                    <p>Estado Sensor: {{ $data->status_read_sensor_lux ?? 'No conectado' }}</p>
+
                                 </div>
                             </div>
                         </div>
@@ -193,10 +202,12 @@
                             <div class="card shadow">
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Nivel de Agua</h6>
-                                   
+
                                 </div>
                                 <div class="card-body">
-                                   
+                                    <p>Nivel de agua: {{ $data->water ?? 'No disponible' }} </p>
+                                    <p>Estado Sensor: {{ $data->status_read_sensor_water ?? 'No conectado' }}</p>
+
                                 </div>
                             </div>
                         </div>

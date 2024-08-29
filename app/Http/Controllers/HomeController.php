@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\SensorData;
 
 use Illuminate\Http\Request;
 
@@ -23,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $data = SensorData::latest('created_at')->first();
+        return view('home', ['data' => $data]);
     }
+
+ 
 }

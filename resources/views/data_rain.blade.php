@@ -5,34 +5,26 @@
 
         <!-- Sidebar -->
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-            <!-- Nav Item - Dashboard -->
             <!-- Nav Item - Dashboard -->
             <nav class="navbar navbar-expand-lg navbar-light ">
                 <div class="container">
                     <img src="{{ asset('img/Logo.png') }}" alt="Logo" style="max-width: 100%">
-
                 </div>
             </nav>
 
-
             <!-- Divider -->
             <hr class="sidebar-divider">
-            <div class="sidebar-heading">
-                Inicio
-            </div>
+            <div class="sidebar-heading">Inicio</div>
 
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('home') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Dashboard</span></a>
             </li>
+
             <hr class="sidebar-divider">
             <!-- Heading -->
-            <div class="sidebar-heading">
-                Datos
-            </div>
-            <!-- Nav Item - Pages Collapse Menu -->
+            <div class="sidebar-heading">Datos</div>
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('Datos_dht11') }}">
                     <i class="fas fa-fw fa-chart-area"></i>
@@ -51,14 +43,8 @@
                     <span>Luminosidad</span></a>
             </li>
 
-            <!-- Nav Item - Utilities Collapse Menu -->
-
-
             <!-- Divider -->
             <hr class="sidebar-divider">
-
-
-
         </ul>
         <!-- End of Sidebar -->
 
@@ -78,14 +64,8 @@
                         </button>
 
                         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <!-- Left Side Of Navbar -->
-                            <ul class="navbar-nav me-auto">
-
-                            </ul>
-
                             <!-- Right Side Of Navbar -->
                             <ul class="navbar-nav ms-auto">
-                                <!-- Authentication Links -->
                                 @guest
                                     @if (Route::has('login'))
                                         <li class="nav-item">
@@ -123,7 +103,6 @@
                         </div>
                     </div>
                 </nav>
-
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
@@ -137,37 +116,69 @@
                     <!-- Content Row -->
                     <div class="row">
 
-
-
-
-
-
-                    </div>
-
-                    <!-- Content Row -->
-
-                    <div class="row">
-
                         <!-- Area Chart -->
                         <div class="col-xl-12 col-lg-8">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Datos Recolectados</h6>
-
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body">
+                                <div class="row">
+                                    <!-- Card con la DataTable (lado izquierdo) -->
+                                    <div class="col-md-6">
+                                        <div class="card mb-4">
+                                            <div class="card-header">
+                                                <h6 class="m-0 font-weight-bold text-primary">Datos del Sensor de Lluvia</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="sensorDataTable" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID Arduino</th>
+                                                            <th>Lluvia</th>
+                                                            <th>Estado Sensor</th>
+                                                            <th>Hora</th>
+                                                            <th>Fecha</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
 
+                                                        @forelse ($data as $item)
+                                                            <tr>
+                                                                <td>{{ $item->id_arduino }}</td>
+                                                                <td>{{ $item->rain }}</td>
+                                                                <td>{{ $item->status_read_sensor_rain }}</td>
+                                                                <td>{{ $item->time }}</td>
+                                                                <td>{{ $item->date }}</td>
+                                                            </tr>
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="6">No hay datos disponibles.</td>
+                                                            </tr>
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card con el Gráfico (lado derecho) -->
+                                    <div class="col-md-6">
+                                        <div class="card mb-4">
+                                            <div class="card-header">
+                                                <h6 class="m-0 font-weight-bold text-primary">Gráfico de Nivel Lluvia               </h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="sensorChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Pie Chart -->
-
                     </div>
-
-
                 </div>
                 <!-- /.container-fluid -->
 
@@ -183,10 +194,46 @@
                 </div>
             </footer>
             <!-- End of Footer -->
-
         </div>
         <!-- End of Content Wrapper -->
-
     </div>
     <!-- End of Page Wrapper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtén los datos de PHP y convierte a formato JavaScript
+            const data = @json($data);
+
+            // Extrae los valores necesarios para los gráficos
+            const labels = data.map(item => item.date);
+            const LuxData = data.map(item => item.lux);
+            const statusData = data.map(item => item.status_read_sensor_lux);
+
+            // Configuración del gráfico de humedad del suelo
+            const ctx = document.getElementById('sensorChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line', // O 'bar' según el tipo de gráfico que prefieras
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Lluvia',
+                        borderColor: 'rgba(54, 162, 235, 1)', // Color del borde en azul
+                        backgroundColor: 'rgba(54, 162, 235, 0.2)', // Color de fondo en azul claro
+                        data: [] // Aquí los datos de temperatura
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 @endsection

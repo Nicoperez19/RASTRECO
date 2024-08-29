@@ -134,17 +134,11 @@
                     </div>
 
                     <!-- Content Row -->
-                    <div class="row">
 
-
-
-
-
-
-                    </div>
 
                     <!-- Content Row -->
 
+                    <!-- Content Row -->
                     <div class="row">
 
                         <!-- Area Chart -->
@@ -153,17 +147,62 @@
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                                     <h6 class="m-0 font-weight-bold text-primary">Datos Recolectados</h6>
-
                                 </div>
                                 <!-- Card Body -->
-                                <div class="card-body">
+                                <div class="row">
+                                    <!-- Card con la DataTable (lado izquierdo) -->
+                                    <div class="col-md-6">
+                                        <div class="card mb-4">
+                                            <div class="card-header">
+                                                <h6 class="m-0 font-weight-bold text-primary">Datos del Sensor Humedad Suelo</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <table id="sensorDataTable" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>ID Arduino</th>
+                                                            <th>Humedad Suelo</th>
+                                                            <th>Estado Sensor</th>
+                                                            <th>Hora</th>
+                                                            <th>Fecha</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
 
+                                                        @forelse ($data as $item)
+                                                            <tr>
+                                                                <td>{{ $item->id_arduino }}</td>
+                                                                <td>{{ $item->ground }}</td>
+                                                                <td>{{ $item->status_read_sensor_ground }}</td>
+                                                                <td>{{ $item->time }}</td>
+                                                                <td>{{ $item->date }}</td>
+                                                            </tr>
+                                                        @empty
+                                                            <tr>
+                                                                <td colspan="6">No hay datos disponibles.</td>
+                                                            </tr>
+                                                        @endforelse
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Card con el Gráfico (lado derecho) -->
+                                    <div class="col-md-6">
+                                        <div class="card mb-4">
+                                            <div class="card-header">
+                                                <h6 class="m-0 font-weight-bold text-primary">Gráfico de Humedad Suelo</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <canvas id="sensorChart"></canvas>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
                         <!-- Pie Chart -->
-
                     </div>
 
 
@@ -188,4 +227,42 @@
 
     </div>
     <!-- End of Page Wrapper -->
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Obtén los datos de PHP y convierte a formato JavaScript
+            const data = @json($data);
+
+            // Extrae los valores necesarios para los gráficos
+            const labels = data.map(item => item.date);
+            const groundData = data.map(item => item.ground);
+            const statusData = data.map(item => item.status_read_sensor_ground);
+
+            // Configuración del gráfico de humedad del suelo
+            const ctx = document.getElementById('sensorChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line', // O 'bar' según el tipo de gráfico que prefieras
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Humedad del Suelo',
+                        data: groundData,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderWidth: 1
+                    }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 @endsection
